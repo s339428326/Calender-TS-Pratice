@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { cn } from '@/utils/cn';
 
 import { Dayjs } from 'dayjs';
 import dayjs from '@/utils/dateTime';
+
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setMonthDay } from '@/store/calendarSlice';
@@ -35,23 +38,29 @@ const Day = ({ coordinate, state, day, isLast }: DayProps) => {
   return (
     <div
       className={cn(
-        'p-3 hover:bg-gray-50 transition-all',
+        'w-full p-2 hover:bg-gray-50 transition-all',
         isLast && 'border-r border-b border-gray-200',
         coordinate[0] === 0 && coordinate[1] === 5 && 'rounded-bl-xl',
         coordinate[0] === 6 && coordinate[1] === 5 && 'rounded-br-xl'
       )}
     >
+      {/* 日期 */}
       <div
         className={cn(
-          'rounded-full p-1 font-bold w-8 flex justify-center items-center',
+          'flex items-start justify-end',
+          'rounded-full p-1 font-bold w-8 h-8 flex justify-center items-center mb-2',
           dayjs().month(state.month).get('month') !== day.get('month') &&
             'text-gray-400',
-          state.currentDayInfo.format('DD/MM/YYYY') ==
+          state.currentDayInfo.format('DD/MM/YYYY') ===
             day.format('DD/MM/YYYY') && 'bg-purple-600 text-white'
         )}
       >
         {day.format('D')}
       </div>
+      {/*  */}
+      <ul>
+        <li className=" bg-amber-200 rounded px-1 font-black">Tom A7</li>
+      </ul>
     </div>
   );
 };
@@ -126,26 +135,23 @@ const CalendarHeader = ({ state }: CalendarHeaderProps) => {
           <div className="border rounded-l-md rounded-r-md mb-auto">
             <button
               type="button"
-              className="p-4"
+              className="p-4 hover:bg-gray-50 border-r"
               onClick={handlerMonth('prev')}
             >
-              L
+              <IoIosArrowBack />
             </button>
-            <button type="button" className="py-4 px-2 border-l border-r">
-              {state.month}
-              Today {}
+            <button type="button" className="py-1 px-2">
+              {/* {state.month} */}
+              Today
             </button>
             <button
               type="button"
-              className="p-4"
+              className="p-4 hover:bg-gray-50 border-l"
               onClick={handlerMonth('next')}
             >
-              R
+              <IoIosArrowForward />
             </button>
           </div>
-          <button type="button" className="btn">
-            匯入
-          </button>
         </div>
       </div>
     </section>
@@ -158,12 +164,12 @@ export const Calendar = () => {
   console.log(state.calendarData);
 
   return (
-    <div className="h-screen">
+    <div className="flex flex-col h-full">
       <CalendarHeader state={state} />
       <WeekBar />
       <div
-        className="
-        min-h-screen grid grid-rows-6 grid-cols-7 
+        className="flex-1
+         grid grid-rows-6 grid-cols-7 
         divide-x divide-y divide-gray-200 border-gray-200
         border-t border-l
         rounded-bl-xl rounded-br-xl 

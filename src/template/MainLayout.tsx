@@ -1,18 +1,17 @@
 import { type PropsWithChildren } from 'react';
-import { Header } from '@/components/Header';
+import { AppSidebar } from '@/components/AppSidebar';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <Header>
-        <div className="container mx-auto">
-          <button className="mr-2" type="button">
-            =
-          </button>
-          <span className="text-2xl font-bold">排班表</span>
-        </div>
-      </Header>
-      <main className="container mx-auto">{children}</main>
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="container mx-auto flex flex-col">
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
     </>
   );
 };

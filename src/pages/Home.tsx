@@ -4,7 +4,7 @@ import { Calendar } from '@/components/Calendar';
 export const Home = () => {
   return (
     <MainLayout>
-      <Calendar />
+      <h1>Home</h1>
     </MainLayout>
   );
 };
